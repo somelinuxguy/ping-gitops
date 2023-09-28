@@ -1,0 +1,39 @@
+#
+# Hi! I'm just an example of using a cronjob in Kubernetes for your reference.
+# This job would run a reaper, usually I use a script like this to clean up
+# test junk in dev which helps mimic "preview" environments in Heroku. Reaper
+# makes sure they only live for 1 day at the most. Quick and dirty, but gets
+# the job done.
+#
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: thereaper
+  namespace: ping-app
+spec:
+  schedule: "0 5 * * *"  # 0 minutes past 5(am) UTC
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          serviceAccountName: vault-auth
+          restartPolicy: Never
+          containers:
+          - name: thereaper
+            image: 639338366904.dkr.ecr.us-east-1.amazonaws.com/ping:latest
+            command: ["/bin/sh", "-c"]
+            args: 
+              [
+                "/bin/sh ./run.sh reaper"
+              ]
+            env:
+            - name: REPO
+              value: "ping-app"
+            volumeMounts:
+            - name: secretvol
+              mountPath: /opt/reaper/secrets
+          volumes:
+          - name: secretvol
+            secret:
+              secretName: reaper-secrets

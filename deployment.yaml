@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-app
+  namespace: ping-app
+  labels:
+    app: ping-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ping-app
+  
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: ping-app
+    spec:
+      serviceAccountName: vault-auth
+      containers: 
+        - name: ping-app
+          workingDir: /opt/ping-app/
+          image: 639338366904.dkr.ecr.us-east-1.amazonaws.com/ping:latest
+          imagePullPolicy: "Always"
+          command: ["/bin/sh", "-c"]
+          args:
+            [
+              "npm start"
+            ]
+          env:
+            - name: ENVIRONMENT
+              value: "dev"
+            - name: REPO
+              value: "ping-app"
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "128Mi"
+            limits:
+              cpu: "400m"
+              memory: "512Mi"
+          volumeMounts:
+            - name: secretvol
+              mountPath: /opt/ping-app/secrets
+      volumes:
+        - name: secretvol
+          secret: 
+            secretName: ping-app-secrets

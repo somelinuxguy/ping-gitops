@@ -15,6 +15,8 @@ Ideally, you can use this with something "pull" based like ArgoCD to watch this 
 ## Disclaimer
 This is just for learning and fun. It might not work for you, and that's ok. Learning to fix broken things is a stupendous teacher. Pull out google and ingest all the help posts you can find, they're magical. 
 
+You'll find my AWS account used a lot in here '639338366904' is my ID, you'll for sure want to use your own. Also I tend to delete my AWS account after getting a demo working, so note that those URLs baked in to this code are worthless.
+
 ### Inspiration
-Edison once said, "I have not failed 10,000 times: I've successfully found 10,000 ways that will not work."
+Thomas Edison once said of his invention of the lightbulb, "I have not failed 10,000 times: I've successfully found 10,000 ways that will not work."
 (Citation - Smithsonian Magazine)

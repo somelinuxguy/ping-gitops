@@ -1,0 +1,35 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ping-ingress
+  namespace: ping-app
+  annotations:
+        kubernetes.io/ingress.class: alb
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/target-type: ip
+        alb.ingress.kubernetes.io/healthcheck-path: /info
+        alb.ingress.kubernetes.io/healty-threshold-count: "1"
+        alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+        alb.ingress.kubernetes.io/ssl-redirect: "443"
+        alb.ingress.kubernetes.io/subnets: subnet-097516fc67bf201e0, subnet-0426904d6bd430bee, subnet-0ff314ef7bca47f4d
+        alb.ingress.kubernetes.io/tags: Environment=dev,Owner=devops
+        alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-FS-1-2-2019-08
+  labels:
+    app: ping-app
+spec:
+  ingressClassName: alb
+  rules:
+    - host: ping.sect.net
+      http:
+        paths:
+          - backend:
+              service:
+                name: ping-app
+                port:
+                  number: 80 
+            path: /
+            pathType: Prefix
+  tls:
+      - hosts:
+          - "*.sect.net"
