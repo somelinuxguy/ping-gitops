@@ -1,10 +1,18 @@
 # PING GitOps
 
-Welcome to the gitops repo for the ping app. You'll want to start here:
+Welcome to the gitops repo for the ping app. 
+
+You'll want to start here:
+
 [ping app](https://github.com/somelinuxguy/ping-app)
 
-and reference:
+Then reference:
+
 [ping infra](https://github.com/somelinuxguy/ping-infra)
+
+These are basically just the kubernetes manifests that we would normally pull in to a pipeline for the ping app, then modify as we'd like, before letting a tool like ArgoCD pull this repo and apply the manifests. Remember that applying manifests updates the running app, so that's the last step of our CI/CD pipeline. ping-infra is the foundation for infrastructure, ping-app has the CI part. ping-gitops is the CD part.
+
+It all flows like water down a hill.
 
 ## Requirements
 
