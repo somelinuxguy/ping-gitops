@@ -1,6 +1,6 @@
 # PING GitOps
 
-Welcome to the gitops repo for the ping app. 
+Welcome to the gitops repo for the ping app. Learn kubernetes components here!
 
 You'll want to start here:
 
@@ -10,13 +10,17 @@ Then reference:
 
 [ping infra](https://github.com/somelinuxguy/ping-infra)
 
+## How To
+
 These are basically just the kubernetes manifests that we would normally pull in to a pipeline for the ping app, then modify as we'd like, before letting a tool like ArgoCD pull this repo and apply the manifests. Remember that applying manifests updates the running app, so that's the last step of our CI/CD pipeline. ping-infra is the foundation for infrastructure, ping-app has the CI part. ping-gitops is the CD part.
 
 It all flows like water down a hill.
 
+You could also simply manually apply the manifests you want, or all of them. kubectl -f comes in handy for that.
+
 ## Requirements
 
-This repo assumes that you have applied the ping-infra to an AWS account, and that you have ping-app (probably forked) running somewhere like EKS and Github Actions.
+This repo assumes that you have applied the ping-infra to an AWS account. Check out the run.sh script in ping-infra for details.
 
 Ideally, you can use this with something "pull" based like ArgoCD to watch this repo and grab manifests when there's an update. If you want to do things the manual way, you could just use these as a good starting point for your own little copy of the ping-app running in Kubernetes (EKS specifically) as a learning tool.
 
