@@ -31,7 +31,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             [
-              "sleep 999"
+              "npm start"
             ]
           env:
             - name: REPO
