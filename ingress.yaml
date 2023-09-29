@@ -8,7 +8,7 @@ metadata:
         kubernetes.io/ingress.class: alb
         alb.ingress.kubernetes.io/scheme: internet-facing
         alb.ingress.kubernetes.io/target-type: ip
-        alb.ingress.kubernetes.io/healthcheck-path: /info
+        alb.ingress.kubernetes.io/healthcheck-path: /
         alb.ingress.kubernetes.io/healty-threshold-count: "1"
         alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
         alb.ingress.kubernetes.io/ssl-redirect: "443"
@@ -32,4 +32,4 @@ spec:
             pathType: Prefix
   tls:
       - hosts:
-          - "*.sect.net"
+          - "sect.net"
